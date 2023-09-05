@@ -15,11 +15,17 @@ const initialState: InitialState = {
   products: [],
   isLoading: true,
   searchResult: [],
-  favoriteList: [],
+  favoriteList: loadFavoriteListFromLocalStorage(),
   cartList: [], 
   randomProducts: [], 
   currentProductIndex: 0,
 };
+
+// Function to load favorite items from local storage
+function loadFavoriteListFromLocalStorage() {
+  const storedData = localStorage.getItem('favoriteList');
+  return storedData ? JSON.parse(storedData) : [];
+}
 
 const productSlice = createSlice({
   name: "products",
@@ -38,12 +44,14 @@ const productSlice = createSlice({
     addToFavorites: (state, action: PayloadAction<Product>) => {
       const favoriteProducts = action.payload;
       state.favoriteList.push(favoriteProducts);
+      localStorage.setItem('favoriteList', JSON.stringify(state.favoriteList));
     },
     removeFromFavorites: (state, action: PayloadAction<string>) => {
       const productId = action.payload;
       state.favoriteList = state.favoriteList.filter(
         (product) => product._id !== productId
       );
+      localStorage.setItem('favoriteList', JSON.stringify(state.favoriteList));
     }, 
     setRandomProducts: (state, action: PayloadAction<Product[]>) => {
       state.randomProducts = action.payload;      

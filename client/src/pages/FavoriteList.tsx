@@ -1,49 +1,50 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../types/types';
-import { Button, Card, CardContent, CardMedia, Grid } from '@mui/material';
-import { Link } from 'react-router-dom';
-import shopBag from '../asserts/images/shop.gif';
-import ImageSlider from "../components/ImageSlider";
+import React from "react";
+import { useSelector } from "react-redux";
+import { Button, Grid, Typography } from "@mui/material";
 
-const styles = {
-  link: {
-    marginRight: 10,
-  },
-  bagIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '30px',
-    height: '30px',
-    marginLeft: 10,
-  },
-};
+import { RootState } from "../types/types";
+import ProductCard from "./ProductCard";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function FavoriteList() {
-  const favoriteList = useSelector((state: RootState) => state.products.favoriteList);
+  const favoriteList = useSelector(
+    (state: RootState) => state.products.favoriteList
+  );
+
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
+  const isFavoriteListEmpty = favoriteList.length === 0;
 
   return (
-    <Grid container spacing={2} margin={5}>
-      {favoriteList.map((item) => (
-        <Grid item key={item._id} xs={12} sm={6} md={4} lg={3}>
-          {/* <ProductCard product={product} /> */}
-          <Card>
-            <ImageSlider images={item.images} imageHeight={200}/>
-            <CardContent>
-            <h2>{item.title}</h2> 
-              <Link to={`/products/${item._id}`} style={styles.link}>
-                More Details
-              </Link>
-              <Button variant="text" color="primary">
-                <div style={styles.bagIcon}>
-                  <img src={shopBag} alt="loved" style={{ width: "100%", height: "100%" }} />
-                </div>
-              </Button>
-          </CardContent>
-          </Card>
+    <div>
+      {isFavoriteListEmpty ? (
+        <Typography variant="body1">No items found in favorites.</Typography>
+      ) : (
+        <Grid container spacing={1} m={1}>
+          {favoriteList.map((item) => (
+            <Grid item xs={12} sm={6} md={3} lg={2} key={item.designerId}>
+              <ProductCard product={item} />
+            </Grid>
+          ))}
         </Grid>
-      ))}
-    </Grid>
+      )}
+
+      <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
+        <Button variant="outlined" color="primary" onClick={handleGoBack}>
+          Back
+        </Button>
+        <div style={{ marginLeft: "10px" }}>
+          <Link to="/products" style={{ textDecoration: "none" }}>
+            <Button variant="outlined" color="primary">
+              Continue Shopping
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 }

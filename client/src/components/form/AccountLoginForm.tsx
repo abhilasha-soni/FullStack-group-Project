@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextField, Button, Typography, Grid } from "@mui/material";
+import { TextField, Button, Typography, Grid, useRadioGroup } from "@mui/material";
 import axios from "axios";
 import { styled } from "@mui/system";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +19,7 @@ export default function AccountLoginForm() {
   const [loggedInUser, setLoggedInUser] = useState("");
   const [loginError, setLoginError] = useState("");
   const [showPasswordError, setShowPasswordError] = useState(false);
+
 
   const handleFormClose = () => {
     setFormOpen(false);
@@ -43,20 +44,25 @@ export default function AccountLoginForm() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-
+  
   function onClickHandler() {
-    const endPoint = `${BASE_URL}/users/login`;      
+    const endPoint = `${BASE_URL}/users/login`;
     axios
-      .post(endPoint, userInformation)
-      .then((response) => {
-        if (response.status === 200) {
-          dispatch(userActions.setUserData(response.data.userData));
-          const userToken = response.data.token;
-          localStorage.setItem("userToken", userToken);
+    .post(endPoint, userInformation)
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(userActions.setUserData(response.data.userData));
+        const userToken = response.data.token;
+        localStorage.setItem("userToken", userToken);
+        if (response.data.userData.role === "admin") {
+          navigate("/admin");
+        } else {
           navigate("/products");
         }
-      })
-      .catch((error) => {
+      }
+    })
+     .catch((error) => {
+       
         if (error.response && error.response.status === 401) {
           setShowPasswordError(true);
           setLoginError("Invalid credentials. Username or Password not correct");

@@ -22,6 +22,7 @@ import Careers from "./pages/Careers";
 import Stores from "./pages/Stores";
 import ShoppingCart from "./pages/ShoppingCart";
 import ShippingOrder from "./components/order/ShippingOrder";
+import Admin from "./pages/Admin";
 
 function App() {
   return (
@@ -46,7 +47,8 @@ function App() {
         <Route path="/order-details/:id" element={<ProductListByCategory />} />            
         <Route path="/stores" element={<Stores />} />   
         <Route path="/careers" element={<Careers />} />
-        <Route path="/contact" element={<ContactUs />} />           
+        <Route path="/contact" element={<ContactUs />} />   
+        <Route path="/admin" element = {<Admin/>}/>     
       </Routes>
       <Footer/>
     </div>

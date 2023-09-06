@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 
 import User from "../models/User";
-import UserServices from "../services/users";
+import UserServices, { getAllUserService } from "../services/users";
 import { BadRequestError } from "../helpers/apiError";
 
 export const createUser = async (
@@ -51,7 +51,7 @@ export const logInWithPassword = async (
     }
 
     //Check for password
-     const isPasswordMatch = await bcrypt.compare(
+    const isPasswordMatch = await bcrypt.compare(
       request.body.password,
       userData.password
     );
@@ -82,11 +82,25 @@ export const updateUserController = async (
   response: Response,
   next: NextFunction
 ) => {
-  try{
-  const update = request.body;
-  const userId = request.params.id;
-  const updatedUser = await UserServices.updateUser(userId, update);
-  response.status(200).json(updatedUser);
+  try {
+    const update = request.body;
+    const userId = request.params.id;
+    const updatedUser = await UserServices.updateUser(userId, update);
+    response.status(200).json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
+//get all users
+export const getAllUsers = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  try {
+    const users = await getAllUserService();
+    response.status(200).json(users);
   } catch (error) {
     next(error);
   }

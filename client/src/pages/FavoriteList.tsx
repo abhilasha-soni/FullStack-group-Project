@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function FavoriteList() {
   const favoriteList = useSelector(
-    (state: RootState) => state.products.favoriteList
+    (state:RootState) => state.products.favoriteList
   );
 
   const navigate = useNavigate();

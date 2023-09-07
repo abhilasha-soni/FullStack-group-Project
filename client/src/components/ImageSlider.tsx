@@ -8,7 +8,7 @@ const ImageSlider = ({ images, imageHeight }:ImageSliderProps) => {
     <Carousel>
       {images.map((image: string, index: number) => (
         <div key={index}>
-          <img src={image} alt={`Slide ${index + 1}`} height={imageHeight} width="200px" />
+          <img src={image} alt={`Slide ${index + 1}`} height={imageHeight} width="500px" />
         </div>
       ))}
     </Carousel>

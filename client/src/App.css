@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  text-decoration: none;
 }
 
 @keyframes fadeIn {
@@ -37,17 +38,17 @@
 /* Carousel */
 .carousel-images {
   position: relative;
-  border-radius: 10px;
-  height: 300px;
+  border-radius: 2px;
+  height: 400px;
   width: 500px;
   margin: auto;
-  padding: 10px;
+  padding: 2px;
   overflow: hidden;
 }
 .carousel-images img {
-  width: 50%;
+  /* width: 50%; */
   height: 99%;
-  border-radius: 8px;  
+  border-radius: 3px;  
 }
 .slide_direction {
   display: flex;
@@ -78,17 +79,17 @@
 }
 .dot {
   background-color: #333;
-  width: 5px;
-  height: 5px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
 }
 .active {
-  background-color: #fa2020;
+  background-color: #026955;
 }
 
 /* Horizontal line */
 .line {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #026955;
   text-align:center;
   height:17px;
   margin :17px;
@@ -176,27 +177,32 @@ div.custom-image-gallery-wrapper .image-gallery-right-nav
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 20px; 
-  width: 100%;  
+  margin: 10;
+  padding:10;
+  width: 600px;  
+  height: 370px;
+  /* background-color: #3c40c6; */
 }
 
 .offer-image-container img {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  margin-bottom: 10px; 
+  width: 500px;
+  max-height: 350px;
+  object-fit: contain;
+  /* background-color: #0edbaf; */
+
+  /* margin-bottom: 10px;  */
 }
 
 .offer-image-container h1 {
   color: #f72585;
-  margin-top: 2px;
-  margin-bottom: -3px;  
+  /* margin-top: 2px; */
+  /* margin-bottom: -3px;   */
 }
 
 .offer-image-container p {
   color: #8900f2;
-  margin-top: -2px;
-  margin-bottom: 20px;
+  /* margin-top: -2px; */
+  /* margin-bottom: 20px; */
   font-size: 14px; 
 }
 
@@ -229,10 +235,12 @@ div.custom-image-gallery-wrapper .image-gallery-right-nav
 /* Footer */
 
 .footer-container {
-  background-color: #16a085; 
+  background-color: #c6e9de; 
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: row;
+  justify-content: space-between;
   margin: 3px;
+  width: 100%;
   }
 
 .footer-section {

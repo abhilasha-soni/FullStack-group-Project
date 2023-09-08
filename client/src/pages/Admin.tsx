@@ -35,7 +35,7 @@ export default function Admin() {
         </Link>
 
         <Link
-          to="/admin"
+          to="/adminProducts"
           style={{
             color: "rgb(0, 0, 0)",
             textAlign: "center",

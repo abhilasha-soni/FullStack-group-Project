@@ -23,6 +23,8 @@ import Stores from "./pages/Stores";
 import ShoppingCart from "./pages/ShoppingCart";
 import ShippingOrder from "./components/order/ShippingOrder";
 import Admin from "./pages/Admin";
+import AdminProducts from "./pages/AdminProducts";
+import AdminProductDetail from "./components/admin/AdminProductDetail";
 
 function App() {
   return (
@@ -32,7 +34,7 @@ function App() {
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/new" element={<NewCollections />}></Route>
         <Route path="/login" element={<AccountLoginForm />}></Route>
-        <Route path="/register" element={<AccountRegisterForm />}></Route>        
+        <Route path="/register" element={<AccountRegisterForm />}></Route>
         <Route path="/products" element={<ProductList />}></Route>
         <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/shopping-cart" element={<ShoppingCart />} />
@@ -43,14 +45,16 @@ function App() {
         <Route path="/ship-order" element={<ShippingOrder />} />
         <Route path="/user-profile" element={<UserInformation />} />
         <Route path="/favorites" element={<FavoriteList />} />
-        <Route path="/:category" element={<ProductListByCategory />} /> 
-        <Route path="/order-details/:id" element={<ProductListByCategory />} />            
-        <Route path="/stores" element={<Stores />} />   
+        <Route path="/:category" element={<ProductListByCategory />} />
+        <Route path="/order-details/:id" element={<ProductListByCategory />} />
+        <Route path="/stores" element={<Stores />} />
         <Route path="/careers" element={<Careers />} />
-        <Route path="/contact" element={<ContactUs />} />   
-        <Route path="/admin" element = {<Admin/>}/>     
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/adminProducts" element={<AdminProducts />} />
+        <Route path="/adminProducts/:id" element={<AdminProductDetail />}></Route>
       </Routes>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

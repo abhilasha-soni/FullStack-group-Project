@@ -2,6 +2,7 @@
 import { Router } from "express";
 import {   
   createUser,
+  getAllUsers,
   logInWithPassword,
   updateUserController,
 } from "../controllers/users";
@@ -19,7 +20,7 @@ router.put(
   passport.authenticate("jwt", { session: false }),
   updateUserController
 );
-
+router.get("/", getAllUsers);
 
 
 

@@ -9,6 +9,7 @@ import NavBarMenu from "./NavBarMenu";
 import NavBarRight from "./NavBarRight";
 import { AppDispatch, RootState } from "../../types/types";
 import { userActions } from "../../redux/slices/user";
+import NavBarSearch from "./NavBarSearch";
 
 const RootAppBar = styled(AppBar)(({ theme }) => ({
   flexGrow: 1,
@@ -17,8 +18,10 @@ const RootAppBar = styled(AppBar)(({ theme }) => ({
 }));
 
 const ToolbarContainer = styled(Toolbar)({
+  height: 100,
+  backgroundColor: "#c6e9de",
   display: "flex",
-  justifyContent: "space-between",
+  justifyContent: "space-evenly",
 });
 
 const RightIcons = styled("div")(({ theme }) => ({
@@ -54,8 +57,10 @@ const handleLogout = () => {
 
   return (
     <RootAppBar position="static">
-    <ToolbarContainer>
+    <ToolbarContainer style={{marginLeft:0, paddingLeft:0}}>
       <NavBarLogo />
+      {/* <SearchFormNew/> */}
+      <NavBarSearch/>
       <NavBarMenu />
       <RightIcons>
           {isLoggedIn && (

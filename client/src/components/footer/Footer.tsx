@@ -3,10 +3,10 @@ import FooterShop from './FooterShop';
 import FooterLogo from './FooterLogo';
 import FooterConnect from './FooterConnect';
 import FooterAbout from "./FooterAbout";
+import FooterUsefulLinks from './FooterUsefulLinks';
 
 export default function Footer() {
   return (
-   
     <div className="footer-container">
       <div className="footer-section">
         <FooterLogo />
@@ -14,16 +14,19 @@ export default function Footer() {
       <div className="footer-section">
         <h4>About Us</h4>
         <FooterAbout />
-      </div> 
+      </div>
       <div className="footer-section">
         <h4>Explore</h4>
         <FooterShop />
-      </div>      
+      </div>
+      <div className="footer-section">
+        <h4>Useful Links</h4>
+        <FooterUsefulLinks />
+      </div>
       <div className="footer-section">
         <h4>Connect With Us</h4>
         <FooterConnect />
       </div>
     </div>
-  
-  )
+  );
 }

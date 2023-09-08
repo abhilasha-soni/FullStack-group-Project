@@ -9,7 +9,7 @@ export default function NavBarLogo() {
     <div>
       <List>
         <ListItem component={Link} to="/" className="navbar-menu-item">
-        <img src={companyLogo} alt="Logo" className="navbar-logo-img" style={{ width: "100px", height: "100px", borderRadius: "20px" }}/>
+        <img src={companyLogo} alt="Logo" className="navbar-logo-img" style={{ width: "100px", height: "100px"}}/>
         </ListItem>
       </List>
     </div>

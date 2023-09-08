@@ -6,10 +6,10 @@ import companyLogo from "../../asserts/images/logo.png";
 
 export default function FooterLogo() {
   return (
-    <div>
+    <div style={{width: 150, marginTop:40}}>
     <List>
       <ListItem component={Link} to="/" className="navbar-menu-item">
-       <img src={companyLogo} alt="Logo" className="navbar-logo-img" style={{ width: "100px", height: "100px", borderRadius: "20px" }}/>
+       <img src={companyLogo} alt="Logo" className="navbar-logo-img" style={{ width: "120px", height: "120px", borderRadius: "20px"}}/>
       </ListItem>
     </List>
   </div>

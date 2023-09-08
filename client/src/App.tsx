@@ -22,6 +22,10 @@ import Careers from "./pages/Careers";
 import Stores from "./pages/Stores";
 import ShoppingCart from "./pages/ShoppingCart";
 import ShippingOrder from "./components/order/ShippingOrder";
+import TermsOfUse from "./pages/TermsOfUse";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Security from "./pages/Security";
+import ReturnPolicy from "./pages/ReturnPolicy";
 import Admin from "./pages/Admin";
 import AdminProducts from "./pages/AdminProducts";
 import AdminProductDetail from "./components/admin/AdminProductDetail";
@@ -50,9 +54,16 @@ function App() {
         <Route path="/stores" element={<Stores />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="/termsofuse" element={<TermsOfUse />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/security" element={<Security />} />
+        <Route path="return" element={<ReturnPolicy />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/adminProducts" element={<AdminProducts />} />
-        <Route path="/adminProducts/:id" element={<AdminProductDetail />}></Route>
+        <Route
+          path="/adminProducts/:id"
+          element={<AdminProductDetail />}
+        ></Route>
       </Routes>
       <Footer />
     </div>

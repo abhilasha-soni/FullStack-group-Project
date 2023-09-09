@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 
-import User from "../models/User";
+import User, { UserDocument } from "../models/User";
 import UserServices, { getAllUserService } from "../services/users";
 import { BadRequestError } from "../helpers/apiError";
 
@@ -102,6 +102,35 @@ export const getAllUsers = async (
     const users = await getAllUserService();
     response.status(200).json(users);
   } catch (error) {
+    next(error);
+  }
+};
+
+export const googleAuthenticate = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userData = req.user as UserDocument;
+    console.log("user", userData);
+    const token = jwt.sign(
+      {
+        // first name + last name
+        email: userData.email,
+        _id: userData._id,
+      },
+      JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+    if (!userData) {
+      res.json({ message: "can't find user with this email" });
+      return;
+    } else {
+      res.json({ token, userData });
+    }
+  } catch (error) {
+    console.log("err", error);
     next(error);
   }
 };

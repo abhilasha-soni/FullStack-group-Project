@@ -44,6 +44,7 @@ const findOrCreate = async (
       email: payload.email,
       firstName: payload.firstName,
       lastName: payload.lastName,
+      password:payload.password
     });
     const createdUser = await user.save();
     return createdUser;

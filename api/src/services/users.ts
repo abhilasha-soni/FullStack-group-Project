@@ -36,5 +36,5 @@ export default {
   createUserService,
   findUserByEmail,
   updateUser,
-  // getAllUserService,
+  getAllUserService,
 };

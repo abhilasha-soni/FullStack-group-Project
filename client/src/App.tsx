@@ -29,6 +29,7 @@ import ReturnPolicy from "./pages/ReturnPolicy";
 import Admin from "./pages/Admin";
 import AdminProducts from "./pages/AdminProducts";
 import AdminProductDetail from "./components/admin/AdminProductDetail";
+import UserList from "./pages/UserList";
 
 function App() {
   return (
@@ -64,6 +65,7 @@ function App() {
           path="/adminProducts/:id"
           element={<AdminProductDetail />}
         ></Route>
+         <Route path="/admin/users" element={<UserList />} /> 
       </Routes>
       <Footer />
     </div>

@@ -9,6 +9,8 @@ import { Provider } from "react-redux";
 
 import store from "./redux/store";
 
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
 const theme = createTheme({
   typography: {
     fontFamily: ["Rajdhani", "sans-serif"].join(","),
@@ -18,12 +20,17 @@ const theme = createTheme({
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const clientId = process.env.REACT_APP_CLIENT_ID as string;
+
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Provider store={store}>
-          <App />
+          <GoogleOAuthProvider clientId={clientId}>
+            <App />
+          </GoogleOAuthProvider>
         </Provider>
       </BrowserRouter>
     </ThemeProvider>

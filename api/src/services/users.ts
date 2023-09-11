@@ -32,9 +32,28 @@ export const getAllUserService = async (): Promise<UserDocument[]> => {
   return await User.find();
 };
 
+const findOrCreate = async (
+  payload: Partial<UserDocument>
+): Promise<UserDocument> => {
+  const result = await User.findOne({ email: payload.email });
+  // find user by email from database
+  if (result) {
+    return result;
+  } else {
+    const user = new User({
+      email: payload.email,
+      firstName: payload.firstName,
+      lastName: payload.lastName,
+    });
+    const createdUser = await user.save();
+    return createdUser;
+  }
+};
+
 export default {
   createUserService,
   findUserByEmail,
   updateUser,
   // getAllUserService,
+  findOrCreate
 };

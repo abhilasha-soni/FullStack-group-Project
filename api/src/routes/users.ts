@@ -3,6 +3,7 @@ import { Router } from "express";
 import {   
   createUser,
   getAllUsers,
+  googleAuthenticate,
   logInWithPassword,
   updateUserController,
 } from "../controllers/users";
@@ -22,6 +23,13 @@ router.put(
 );
 router.get("/", getAllUsers);
 
+// google
+router.post(
+ "/google-login",
+ passport.authenticate("google-id-token", { session: false }),
+//   // user -  from passport
+googleAuthenticate
+ );
 
 
 export default router;

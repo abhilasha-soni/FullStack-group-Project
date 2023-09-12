@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { User, UserWithBlocked } from "../../types/types";
+import { User } from "../../types/types";
 
 type InitialState = {
   userInformation: User | null;
-  userList: UserWithBlocked[];
+  userList: User[];
 };
 
 const initialState: InitialState = {
@@ -23,13 +23,13 @@ const userSlice = createSlice({
       state.userInformation = null;
     },
     setUserList: (state, action: PayloadAction<User[]>) => {
-      state.userList = action.payload.map((user) => ({...user, blocked: false,}));
+      state.userList = action.payload;
     },
     toggleBlocked: (state, action: PayloadAction<string>) => {
       const userId = action.payload;
       const user = state.userList.find((u) => u._id === userId);
       if (user) {
-        user.blocked = !user.blocked; 
+        user.blocked = !user.blocked;
       }
     },
   },

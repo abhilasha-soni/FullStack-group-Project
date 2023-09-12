@@ -39,6 +39,7 @@ export type User = {
   country: string;
   phone: string;
   role: string;
+  blocked: boolean;
 };
 
 export type ProductWithQuantity = Product & {
@@ -120,8 +121,11 @@ export type OrderDetailProps = {
   orderDetails: Order;
 };
 
-//UserwithBlocked
-export type UserWithBlocked = User & { blocked: boolean };
+export type PaginationProps = {
+  currentPage:number;
+  totalPages: number;
+  onPageChange: (page:number) => void;  
+}
 
 export type RootState = ReturnType<typeof store.getState>;
 

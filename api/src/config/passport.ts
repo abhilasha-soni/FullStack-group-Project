@@ -18,22 +18,24 @@ export const jwtStrategy = new JwtStrategy(
     const foundUser = await UserServices.findUserByEmail(userEmail);
     done(null, foundUser);
     // next()
-  })
+  }
+);
 
-  //google passport
- export const googleStrategy = new GoogleTokenStrategy(
-   {
-     clientID: clientId,
-   },
-  
-   async function (parsedToken: any, googleId: string, done: any) {
-      console.log(parsedToken, "token");
-     const userPayload = {
-       email: parsedToken?.payload?.email,
-       firstName: parsedToken?.payload?.given_name,
-       lastName: parsedToken?.payload?.family_name
-     };
-     const foundUser = await UserServices.findOrCreate(userPayload);
-     done(null, foundUser);
-   }
+//google passport
+export const googleStrategy = new GoogleTokenStrategy(
+  {
+    clientID: clientId,
+  },
+
+  async function (parsedToken: any, googleId: string, done: any) {
+    console.log(parsedToken, "token");
+    const userPayload = {
+      email: parsedToken?.payload?.email,
+      firstName: parsedToken?.payload?.given_name,
+      lastName: parsedToken?.payload?.family_name,
+      password: "dummy",
+    };
+    const foundUser = await UserServices.findOrCreate(userPayload);
+    done(null, foundUser);
+  }
 );

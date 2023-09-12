@@ -1,14 +1,8 @@
 import React, { useState } from "react";
-import {
-  TextField,
-  Button,
-  Typography,
-  Grid,
-  useRadioGroup,
-} from "@mui/material";
+import { TextField, Button, Typography, Grid, useRadioGroup, ListItem } from "@mui/material";
 import axios from "axios";
 import { styled } from "@mui/system";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { BASE_URL } from "../../api";
@@ -154,6 +148,9 @@ export default function AccountLoginForm() {
           Create one
         </span>
       </Typography>
+      <ListItem component={Link} to="/googleLogin" className="navbar-menu-item">
+        <span className="icon-text">Google Login</span>
+      </ListItem>
       {blockedMessage && (
         <Typography variant="body1" color="error" align="center">
           {blockedMessage}

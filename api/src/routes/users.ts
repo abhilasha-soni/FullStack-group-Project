@@ -4,6 +4,7 @@ import {
   blockUserController,
   createUser,
   getAllUsers,
+  googleAuthenticate,
   logInWithPassword,
   unblockUserController,
   updateUserController,
@@ -26,7 +27,14 @@ router.put(
 router.get("/", getAllUsers);
 
 router.put("/:id/block", blockUserController);
-
 router.put("/:id/unblock", unblockUserController);
+
+// google
+router.post(
+  "/google-login",
+  passport.authenticate("google-id-token", { session: false }),
+  //   // user -  from passport
+  googleAuthenticate
+);
 
 export default router;

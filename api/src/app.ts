@@ -4,7 +4,7 @@ import cors from "cors";
 import passport from "passport";
 
 import apiErrorHandler from "./middlewares/apiErrorHandler";
-import { jwtStrategy } from "./config/passport";
+import { googleStrategy, jwtStrategy } from "./config/passport";
 import productRouter from "./routes/products";
 import userRouter from "./routes/users";
 import orderRouter from "./routes/orders";
@@ -15,7 +15,8 @@ app.use(Express.json());
 app.use(cors());
 app.use(passport.initialize());
 passport.use(jwtStrategy);
-
+ passport.use(googleStrategy);
+ 
 //routes
 app.use("/products", productRouter);
 app.use("/users", userRouter);

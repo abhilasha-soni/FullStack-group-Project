@@ -29,7 +29,11 @@ import ReturnPolicy from "./pages/ReturnPolicy";
 import Admin from "./pages/Admin";
 import AdminProducts from "./pages/AdminProducts";
 import AdminProductDetail from "./components/admin/AdminProductDetail";
+<<<<<<< HEAD
 import UserList from "./pages/UserList";
+=======
+import GoogleLogIn from "./components/google/GoogleLogin";
+>>>>>>> 3de78a346d4bb100c6ca90a61bf9232e43766e48
 
 function App() {
   return (
@@ -65,7 +69,11 @@ function App() {
           path="/adminProducts/:id"
           element={<AdminProductDetail />}
         ></Route>
+<<<<<<< HEAD
          <Route path="/admin/users" element={<UserList />} /> 
+=======
+	<Route path="/googleLogin" element={<GoogleLogIn/>}></Route>
+>>>>>>> 3de78a346d4bb100c6ca90a61bf9232e43766e48
       </Routes>
       <Footer />
     </div>

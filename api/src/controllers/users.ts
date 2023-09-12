@@ -4,8 +4,8 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 
-import User from "../models/User";
 import UserServices from "../services/users";
+import User, { UserDocument } from "../models/User";
 import { BadRequestError } from "../helpers/apiError";
 
 export const createUser = async (
@@ -139,6 +139,34 @@ export const unblockUserController = async (
     const user = await UserServices.unblockUserService(userId);
     response.status(200).json({ message: "User unblocked successfully", user });
   } catch (error) {
+    next(error);
+  }
+};
+export const googleAuthenticate = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userData = req.user as UserDocument;
+    console.log("user", userData);
+    const token = jwt.sign(
+      {
+        // first name + last name
+        email: userData.email,
+        _id: userData._id,
+      },
+      JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+    if (!userData) {
+      res.json({ message: "can't find user with this email" });
+      return;
+    } else {
+      res.json({ token, userData });
+    }
+  } catch (error) {
+    console.log("err", error);
     next(error);
   }
 };

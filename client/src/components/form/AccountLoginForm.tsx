@@ -20,7 +20,6 @@ export default function AccountLoginForm() {
   const [loginError, setLoginError] = useState("");
   const [showPasswordError, setShowPasswordError] = useState(false);
 
-
   const handleFormClose = () => {
     setFormOpen(false);
   };
@@ -34,6 +33,8 @@ export default function AccountLoginForm() {
     password: "",
   });
 
+  const [blockedMessage, setBlockedMessage] = useState("");
+
   function getUserEmail(event: React.ChangeEvent<HTMLInputElement>) {
     setUserInformation({ ...userInformation, email: event.target.value });
   }
@@ -44,30 +45,36 @@ export default function AccountLoginForm() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  
+
   function onClickHandler() {
     const endPoint = `${BASE_URL}/users/login`;
     axios
-    .post(endPoint, userInformation)
-    .then((response) => {
-      if (response.status === 200) {
-        dispatch(userActions.setUserData(response.data.userData));
-        const userToken = response.data.token;
-        localStorage.setItem("userToken", userToken);
-        if (response.data.userData.role === "admin") {
-          navigate("/admin");
-        } else {
-          navigate("/products");
+      .post(endPoint, userInformation)
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch(userActions.setUserData(response.data.userData));
+          const userToken = response.data.token;
+          localStorage.setItem("userToken", userToken);
+          if (response.data.userData.role === "admin") {
+            navigate("/admin");
+          } else {
+            navigate("/products");
+          }
         }
-      }
-    })
-     .catch((error) => {
-       
+      })
+      .catch((error) => {
         if (error.response && error.response.status === 401) {
           setShowPasswordError(true);
-          setLoginError("Invalid credentials. Username or Password not correct");
+          setLoginError(
+            "Invalid credentials. Username or Password not correct"
+          );
         } else if (error.response && error.response.status === 404) {
           setLoginError("User not found. Create an account.");
+        } else if (error.response && error.response.status === 403) {
+          // User is blocked
+          setBlockedMessage(
+            "Your account is blocked. Contact the administrator."
+          );
         } else {
           setLoginError("An error occurred. Please try again later.");
         }
@@ -144,6 +151,11 @@ export default function AccountLoginForm() {
       <ListItem component={Link} to="/googleLogin" className="navbar-menu-item">
         <span className="icon-text">Google Login</span>
       </ListItem>
+      {blockedMessage && (
+        <Typography variant="body1" color="error" align="center">
+          {blockedMessage}
+        </Typography>
+      )}
     </div>
   );
 }

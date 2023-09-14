@@ -4,8 +4,8 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 
+import UserServices from "../services/users";
 import User, { UserDocument } from "../models/User";
-import UserServices, { getAllUserService } from "../services/users";
 import { BadRequestError } from "../helpers/apiError";
 
 export const createUser = async (
@@ -48,6 +48,15 @@ export const logInWithPassword = async (
         .status(403)
         .json({ message: "User do not have account yet. Create one!" });
       return;
+    }
+
+    // Check if the user is blocked
+    if (userData.blocked) {
+      return response
+        .status(403)
+        .json({
+          message: "Your account is blocked. Contact the administrator.",
+        });
     }
 
     //Check for password
@@ -99,13 +108,40 @@ export const getAllUsers = async (
   next: NextFunction
 ) => {
   try {
-    const users = await getAllUserService();
+    const users = await UserServices.getAllUserService();
     response.status(200).json(users);
   } catch (error) {
     next(error);
   }
 };
 
+export const blockUserController = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = request.params.id;
+    const user = await UserServices.blockUserByService(userId);
+    response.status(200).json({ message: "User blocked successfully", user });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const unblockUserController = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = request.params.id;
+    const user = await UserServices.unblockUserService(userId);
+    response.status(200).json({ message: "User unblocked successfully", user });
+  } catch (error) {
+    next(error);
+  }
+};
 export const googleAuthenticate = async (
   req: Request,
   res: Response,

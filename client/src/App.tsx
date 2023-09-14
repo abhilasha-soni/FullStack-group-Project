@@ -14,7 +14,7 @@ import AccountRegisterForm from "./components/form/AccountRegisterForm";
 import UserInformation from "./pages/UserInformation";
 import OrderHistory from "./components/user/OrderHistory";
 import ShippingPage from "./components/order/ShippingPage";
-import FavoriteList from './pages/FavoriteList';
+import FavoriteList from "./pages/FavoriteList";
 import Footer from "./components/footer/Footer";
 import ProductListByCategory from "./components/product/ProductListByCategory";
 import ContactUs from "./pages/ContactUs";
@@ -28,9 +28,9 @@ import Security from "./pages/Security";
 import ReturnPolicy from "./pages/ReturnPolicy";
 import Admin from "./pages/Admin";
 import AdminProducts from "./pages/AdminProducts";
-import AdminProductDetail from "./components/admin/AdminNavBar";
 import GoogleLogIn from "./components/google/GoogleLogin";
 import AdminEditProduct from "./components/admin/AdminEditProduct";
+import UserList from "./pages/UserList";
 
 function App() {
 
@@ -69,6 +69,7 @@ function App() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/adminProducts" element={<AdminProducts />} />
         <Route path="/adminproducts/:id" element={<AdminEditProduct />}></Route>
+        <Route path="/admin/users" element={<UserList />}></Route>
         <Route path="/googleLogin" element={<GoogleLogIn />}></Route>
       </Routes>
       {!isAdminRoute && <Footer />}

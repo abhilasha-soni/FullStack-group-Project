@@ -13,6 +13,7 @@ export type UserDocument = Document & {
   state: string;  
   country: string;
   phone: string;
+  blocked: boolean;
 };
 
 const UserSchema = new mongoose.Schema({
@@ -55,6 +56,10 @@ const UserSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
+  },
+  blocked: {
+    type: Boolean,
+    default: false, 
   },
 });
 

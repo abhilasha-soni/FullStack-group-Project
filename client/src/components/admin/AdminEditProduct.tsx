@@ -8,6 +8,7 @@ import { BASE_URL } from "../../api";
 import { AppDispatch, RootState } from "../../types/types";
 import { adminProductActions } from "../../redux/slices/adminProduct";
 import { fetchAdminProductDetail } from "../../redux/thunks/adminProductsThunk";
+import AdminNavBar from "./AdminNavBar";
 
 
 interface ProductState {
@@ -108,6 +109,7 @@ export default function AdminEditProduct() {
 
   return (
     <div>
+      <AdminNavBar />
       AdminEditProduct
       <TextField
         fullWidth

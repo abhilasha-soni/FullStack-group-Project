@@ -32,6 +32,30 @@ export const getAllUserService = async (): Promise<UserDocument[]> => {
   return await User.find();
 };
 
+export const blockUserByService = async (
+  userId: string
+): Promise<UserDocument | null> => {
+  const user = await User.findById(userId);
+
+  if (!user) {
+    throw new NotFoundError("User not found");
+  }
+
+  user.blocked = true;
+  return await user.save();
+};
+
+export const unblockUserService = async (
+  userId: string
+): Promise<UserDocument | null> => {
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new NotFoundError("User not found");
+  }
+  user.blocked = false;
+  return await user.save();
+};
+
 const findOrCreate = async (
   payload: Partial<UserDocument>
 ): Promise<UserDocument> => {
@@ -55,6 +79,8 @@ export default {
   createUserService,
   findUserByEmail,
   updateUser,
-  // getAllUserService,
+  getAllUserService,
+  blockUserByService,
+  unblockUserService,
   findOrCreate
 };

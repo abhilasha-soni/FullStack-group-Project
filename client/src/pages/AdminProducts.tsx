@@ -9,6 +9,7 @@ import { useLocation } from "react-router-dom";
 import { fetchProductData } from "../redux/thunks/productListThunk";
 import ProductCard from "./ProductCard";
 import AdminProductCard from "../components/admin/AdminProductCard";
+import AdminNavBar from "../components/admin/AdminNavBar";
 
 export default function AdminProducts() {
   const dispatch = useDispatch<AppDispatch>();
@@ -49,6 +50,7 @@ export default function AdminProducts() {
 
   return (
     <div>
+      <AdminNavBar />
       <Grid container spacing={1} m={1}>
         {filteredProducts?.map((product: Product) => (
           <Grid item xs={12} sm={6} md={3} lg={2} key={product.designerId}>

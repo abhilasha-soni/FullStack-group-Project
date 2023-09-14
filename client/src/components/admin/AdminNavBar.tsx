@@ -22,6 +22,10 @@ export default function AdminNavBar() {
         <ListItem component={Link} to="/adminProducts">
           All Products
         </ListItem>
+        <ListItem component={Link} to="/admin/users">
+        Users
+        </ListItem>
+     
       </List>
     </div>
   );

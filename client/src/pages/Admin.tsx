@@ -79,7 +79,7 @@ export default function Admin() {
         </Link>
 
         <Link
-          to="/admin"
+          to="/admin/users"
           style={{
             color: "rgb(0, 0, 0)",
             textAlign: "center",

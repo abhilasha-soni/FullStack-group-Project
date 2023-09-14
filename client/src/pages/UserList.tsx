@@ -8,6 +8,7 @@ import { BASE_URL } from "../api";
 import { userActions } from "../redux/slices/user";
 import { fetchUserData } from "../redux/thunks/userListThunk";
 import Pagination from "../components/Pagination";
+import AdminNavBar from "../components/admin/AdminNavBar";
 
 export default function UserList() {
   const dispatch = useDispatch<AppDispatch>();
@@ -55,6 +56,7 @@ export default function UserList() {
       }}
     >
       <div>
+        <AdminNavBar />
         <h1>User List</h1>
         <table>
           <thead>
@@ -92,10 +94,10 @@ export default function UserList() {
           }}
         >
           <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={handlePageChange}                           
-            />
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
         </div>
       </div>
     </div>

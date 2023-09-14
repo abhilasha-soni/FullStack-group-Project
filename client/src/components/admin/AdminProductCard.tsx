@@ -29,11 +29,8 @@ export default function AdminProductCard({
 }: ProductCardProps) {
   const dispatch = useDispatch<AppDispatch>();
   const [hoveredIndex, setHoveredIndex] = useState<number>(0);
-  const [dialogOpen, setDialogOpen] = useState(false);
+  // const [dialogOpen, setDialogOpen] = useState(false);
 
-  const favoriteList = useSelector(
-    (state: RootState) => state.products.favoriteList
-  );
 
   const handleMouseEnter = (index: number) => {
     if (product.images.length > 1) {
@@ -45,26 +42,7 @@ export default function AdminProductCard({
     setHoveredIndex(0);
   };
 
-  // const handleOpenDialog = () => {
-  //   dispatch(fetchProductDetail(product._id));
-  //   setDialogOpen(true);
-  // };
-
-  const handleCloseDialog = () => {
-    setDialogOpen(false);
-  };
-
-  const isProductFavorite = favoriteList.some(
-    (favorite: Product) => favorite._id === product._id
-  );
-
-  const handleFavoriteClick = () => {
-    if (isProductFavorite) {
-      dispatch(productActions.removeFromFavorites(product._id));
-    } else {
-      dispatch(productActions.addToFavorites(product));
-    }
-  };
+ 
 
   return (
     <Card className="product-card">
@@ -94,7 +72,7 @@ export default function AdminProductCard({
           }}
         />
       )}
-      <Link to={`/products/${product._id}`}>
+      <Link to={`/adminProducts/${product._id}`}>
         <CardMedia
           component="img"
           image={product.images[hoveredIndex || 0]}
@@ -157,7 +135,9 @@ export default function AdminProductCard({
         )}
       </CardContent>
       <div>
-        <Button>Edit</Button>
+        <Link to={`/adminProducts/${product._id}`}>
+          <Button>Edit</Button>
+        </Link>
       </div>
       {/* <ProductDetailsDialog open={dialogOpen} onClose={handleCloseDialog} /> */}
     </Card>

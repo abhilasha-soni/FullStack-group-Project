@@ -3,11 +3,11 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Product } from "../../types/types";
 
 type InitialState = {
-  ProductInfo : Product | null;
+  productDetail : Product | null;
 };
 
 const initialState:InitialState = {
-  ProductInfo :null,
+  productDetail :null,
 };
 
 const adminProductSlice = createSlice ({
@@ -15,11 +15,16 @@ const adminProductSlice = createSlice ({
   initialState,
   reducers:{
     setProductData: (state, action: PayloadAction<Product>) => {
-      state.ProductInfo = action.payload;
+      state.productDetail = action.payload
     },
     clearProductData: (state) =>{
-      state.ProductInfo = null;
+      state.productDetail = null;
     },
+
+getProductDetail: (state, action: PayloadAction<Product>) => {
+      state.productDetail = action.payload;
+    },
+
   },
 });
 

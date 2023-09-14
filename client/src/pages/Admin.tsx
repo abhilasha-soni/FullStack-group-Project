@@ -2,10 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import companyLogo from "../asserts/images/logo.png";
+import AdminNavBar from "../components/admin/AdminNavBar";
 
 export default function Admin() {
   return (
     <div>
+      <AdminNavBar/>
       <div
         style={{
           display: "flex",

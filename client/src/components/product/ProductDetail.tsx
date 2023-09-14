@@ -28,6 +28,8 @@ export default function ProductDetail() {
     return <div>No information available</div>;
   }
 
+  console.log(productId);
+
   const handleMouseEnter = (index: number) => {
     setHoveredIndex(index);
   };

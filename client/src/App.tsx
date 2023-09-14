@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 import NavBar from "./components/navbar/NavBar";
 import HomePage from "./pages/HomePage";
@@ -28,13 +28,20 @@ import Security from "./pages/Security";
 import ReturnPolicy from "./pages/ReturnPolicy";
 import Admin from "./pages/Admin";
 import AdminProducts from "./pages/AdminProducts";
-import AdminProductDetail from "./components/admin/AdminProductDetail";
+import AdminProductDetail from "./components/admin/AdminNavBar";
 import GoogleLogIn from "./components/google/GoogleLogin";
+import AdminEditProduct from "./components/admin/AdminEditProduct";
 
 function App() {
+
+   const location = useLocation();
+   const isAdminRoute = location.pathname.startsWith("/admin");
+
+   
   return (
     <div className="App">
-      <NavBar />
+      {!isAdminRoute && <NavBar />}
+      {/* <NavBar /> */}
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/new" element={<NewCollections />}></Route>
@@ -61,15 +68,14 @@ function App() {
         <Route path="return" element={<ReturnPolicy />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/adminProducts" element={<AdminProducts />} />
-        <Route
-          path="/adminProducts/:id"
-          element={<AdminProductDetail />}
-        ></Route>
-	<Route path="/googleLogin" element={<GoogleLogIn/>}></Route>
+        <Route path="/adminproducts/:id" element={<AdminEditProduct />}></Route>
+        <Route path="/googleLogin" element={<GoogleLogIn />}></Route>
       </Routes>
-      <Footer />
+      {!isAdminRoute && <Footer />}
+      {/* <Footer /> */}
     </div>
   );
 }
 
 export default App;
+

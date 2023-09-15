@@ -4,8 +4,8 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 
-import User from "../models/User";
 import UserServices from "../services/users";
+import User, { UserDocument } from "../models/User";
 import { BadRequestError } from "../helpers/apiError";
 
 export const createUser = async (
@@ -50,8 +50,17 @@ export const logInWithPassword = async (
       return;
     }
 
+    // Check if the user is blocked
+    if (userData.blocked) {
+      return response
+        .status(403)
+        .json({
+          message: "Your account is blocked. Contact the administrator.",
+        });
+    }
+
     //Check for password
-     const isPasswordMatch = await bcrypt.compare(
+    const isPasswordMatch = await bcrypt.compare(
       request.body.password,
       userData.password
     );
@@ -82,12 +91,82 @@ export const updateUserController = async (
   response: Response,
   next: NextFunction
 ) => {
-  try{
-  const update = request.body;
-  const userId = request.params.id;
-  const updatedUser = await UserServices.updateUser(userId, update);
-  response.status(200).json(updatedUser);
+  try {
+    const update = request.body;
+    const userId = request.params.id;
+    const updatedUser = await UserServices.updateUser(userId, update);
+    response.status(200).json(updatedUser);
   } catch (error) {
+    next(error);
+  }
+};
+
+//get all users
+export const getAllUsers = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  try {
+    const users = await UserServices.getAllUserService();
+    response.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const blockUserController = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = request.params.id;
+    const user = await UserServices.blockUserByService(userId);
+    response.status(200).json({ message: "User blocked successfully", user });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const unblockUserController = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = request.params.id;
+    const user = await UserServices.unblockUserService(userId);
+    response.status(200).json({ message: "User unblocked successfully", user });
+  } catch (error) {
+    next(error);
+  }
+};
+export const googleAuthenticate = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userData = req.user as UserDocument;
+    console.log("user", userData);
+    const token = jwt.sign(
+      {
+        // first name + last name
+        email: userData.email,
+        _id: userData._id,
+      },
+      JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+    if (!userData) {
+      res.json({ message: "can't find user with this email" });
+      return;
+    } else {
+      res.json({ token, userData });
+    }
+  } catch (error) {
+    console.log("err", error);
     next(error);
   }
 };

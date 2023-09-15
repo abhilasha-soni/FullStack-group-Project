@@ -1,4 +1,4 @@
-import mongoose, { Document } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
 export type CategoryDocument = Document & {
   categoryName: string;
@@ -12,8 +12,14 @@ const CategorySchema = new mongoose.Schema({
     unique: true,
   },
   imageUrl: {
-    type: String,    
+    type: String,
   },
+  productIds: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Product",
+    },
+  ],
 });
 
 export default mongoose.model<CategoryDocument>("category", CategorySchema);
